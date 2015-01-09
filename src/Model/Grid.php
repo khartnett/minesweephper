@@ -1,6 +1,7 @@
 <?php
+namespace Model;
 
-require_once('Cell.php');
+use \Model\Cell;
 
 class Grid {
     protected $gridArray;

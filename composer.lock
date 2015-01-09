@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5f8249ac398f515ce547d5aede6129d0",
+    "hash": "0118c74354e25f2053fe5494265b5c6c",
     "packages": [
         {
             "name": "league/climate",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/climate.git",
-                "reference": "91017b8b8d438801bab126e4f294db0ab55ac924"
+                "reference": "776b6c3b32837832a9f6d94f134b55cb7910ece6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/climate/zipball/91017b8b8d438801bab126e4f294db0ab55ac924",
-                "reference": "91017b8b8d438801bab126e4f294db0ab55ac924",
+                "url": "https://api.github.com/repos/thephpleague/climate/zipball/776b6c3b32837832a9f6d94f134b55cb7910ece6",
+                "reference": "776b6c3b32837832a9f6d94f134b55cb7910ece6",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "php",
                 "terminal"
             ],
-            "time": "2014-12-15 18:08:40"
+            "time": "2015-01-08 02:28:23"
         }
     ],
     "packages-dev": [],

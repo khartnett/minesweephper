@@ -1,14 +1,18 @@
 <?php
-require_once 'Grid.php';
+namespace Model;
+
+use \Model\Grid;
+
 class Game {
-    protected $gameOn = true;
+    protected $running = true;
+    protected $gameOn = false;
     protected $grid;
     protected $climate;
 
     public function run() {
-        $this->climate = new League\CLImate\CLImate;
+        $this->climate = new \League\CLImate\CLImate;
         $this->newGame(9,9,10);
-        while($this->gameOn) {
+        while($this->running) {
             $this->draw();
             $response = $this->getInput();
             $this->handleResponse($response);
@@ -24,13 +28,20 @@ class Game {
     }
 
     protected function getInput() {
-        $input = $this->climate->input('(q)uit or Row then cell:');
+        $input = $this->climate->input('(n)ew game, (q)uit, (B4) to reveal, (-B4) to flag:');
         return $input->prompt();
     }
 
     protected function handleResponse($response) {
         if ($response === 'q' || $response === "quit") {
-            $this->gameOn = false;
+            $this->running = false;
+            return;
+        }
+        if ($response === 'n') {
+            $this->newGame(9,9,10);
+            return;
+        }
+        if (!$this->gameOn) {
             return;
         }
         $flag = false;
@@ -78,6 +89,7 @@ class Game {
     }
 
     protected function newGame($sizeW, $sizeH, $mines) {
+        $this->gameOn = true;
         $this->grid = new Grid($sizeW, $sizeH, $mines);
     }
 
@@ -96,6 +108,7 @@ class Game {
     }
 
     protected function lose() {
+        $this->gameOn = false;
         $this->grid->revealMines();
     }
 }
