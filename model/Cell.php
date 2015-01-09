@@ -57,7 +57,7 @@ class Cell {
     }
 
     public function toggleFlagged() {
-        if ($this->isVisible()) {
+        if (!$this->isVisible()) {
             $this->flagged = !$this->flagged;
         }
     }

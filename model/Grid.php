@@ -114,4 +114,12 @@ class Grid {
         return $neighbors;
     }
 
+    public function revealMines() {
+        foreach ($this->gridArray as $cell) {
+            if ($cell->isMine()) {
+                $cell->reveal();
+            }
+        }
+    }
+
 }
