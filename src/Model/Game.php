@@ -2,15 +2,17 @@
 namespace Model;
 
 use \Model\Grid;
+use \View\Terminal;
+use \League\CLImate\Climate;
 
 class Game {
     protected $running = true;
     protected $gameOn = false;
     protected $grid;
-    protected $climate;
+    protected $gameView;
 
     public function run() {
-        $this->climate = new \League\CLImate\CLImate;
+        $this->gameView = new Terminal(new CLImate(), 4);
         $this->newGame(9,9,10);
         while($this->running) {
             $this->draw();
@@ -21,20 +23,26 @@ class Game {
 
     protected function draw() {
         // todo: move to view
-        $this->climate->clear();
+        $this->gameView->clear();
         if ($this->grid) {
-            $this->climate->redTable($this->grid->getViewGrid());
+            $this->gameView->drawGrid($this->grid->getViewGrid());
         }
+        $this->gameView->drawMessages();
+        $this->gameView->clearMessages();
     }
 
     protected function getInput() {
-        $input = $this->climate->input('(n)ew game, (q)uit, (B4) to reveal, (-B4) to flag:');
-        return $input->prompt();
+        if ($this->gameOn) {
+            return $this->gameView->prompt('(n)ew game, (q)uit, (B4) to reveal, (-B4) to flag:');
+        } else {
+            return $this->gameView->prompt('(n)ew game, (q)uit:');
+        }
     }
 
     protected function handleResponse($response) {
         if ($response === 'q' || $response === "quit") {
             $this->running = false;
+            $this->gameView->clear();
             return;
         }
         if ($response === 'n') {
@@ -61,6 +69,7 @@ class Game {
             }
         } else {
             // don't understand input
+            $this->gameView->addMessage("I'm sorry, I don't understand your input");
         }
     }
 
@@ -94,6 +103,10 @@ class Game {
     }
 
     protected function stepCell($cell) {
+        if (!$cell) {
+            $this->gameView->addMessage("Cell not found");
+            return;
+        }
         $value = $cell->reveal();
         if ($value === " ") {
             $neighbors = $this->grid->getCellNeighbors($cell->getRow(), $cell->getCol());
@@ -110,5 +123,6 @@ class Game {
     protected function lose() {
         $this->gameOn = false;
         $this->grid->revealMines();
+        $this->gameView->addMessage("You Lose!");
     }
 }
