@@ -17,17 +17,12 @@ class Grid {
         $this->setupNumbers();
     }
 
-    public function getViewGrid() {
-        $viewGrid = array();
-        for ($row = 1; $row <= $this->height; $row++) {
-            $newRow = array( ' ' => "$row");
-            for ($col = 1; $col <= $this->width; $col++) {
-                $cell = $this->getCell($row, $col);
-                $newRow[chr(64 + $col)] = $cell->getPrintValue();
-            }
-            $viewGrid[] = $newRow;
-        }
-        return $viewGrid;
+    public function getHeight() {
+        return $this->height;
+    }
+
+    public function getWidth() {
+        return $this->width;
     }
 
     private function buildGrid() {

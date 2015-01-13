@@ -25,7 +25,7 @@ class Game {
         // todo: move to view
         $this->gameView->clear();
         if ($this->grid) {
-            $this->gameView->drawGrid($this->grid->getViewGrid());
+            $this->gameView->drawGrid($this->grid);
         }
         $this->gameView->drawMessages();
         $this->gameView->clearMessages();
